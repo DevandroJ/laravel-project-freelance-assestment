@@ -7,12 +7,15 @@ use App\Services\PriceCalculatorService;
 
 class Question3Controller extends Controller
 {
+    const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
     public function __construct(private PriceCalculatorService $service) {}
 
     public function index()
     {
-        $today = now()->format('l'); // e.g. "Monday"
-        return view('question3.index', compact('today'));
+        $actualDay   = now()->format('l');
+        $selectedDay = $actualDay;
+        return view('question3.index', compact('actualDay', 'selectedDay'));
     }
 
     public function calculate(Request $request)
@@ -20,15 +23,18 @@ class Question3Controller extends Controller
         $request->validate([
             'type'     => ['required', 'in:A,B'],
             'quantity' => ['required', 'integer', 'min:1'],
+            'day'      => ['required', 'in:' . implode(',', self::DAYS)],
         ]);
 
-        $today  = now()->format('l');
+        $actualDay   = now()->format('l');
+        $selectedDay = $request->input('day');
+
         $result = $this->service->calculate(
             $request->input('type'),
             (int) $request->input('quantity'),
-            $today
+            $selectedDay
         );
 
-        return view('question3.index', compact('today', 'result'));
+        return view('question3.index', compact('actualDay', 'selectedDay', 'result'));
     }
 }

@@ -5,7 +5,8 @@
 @section('content')
 <div class="text-center mb-10">
     <h1 class="text-3xl font-bold text-gray-800 mb-2">Backend Skill Test</h1>
-    <p class="text-gray-500">Laravel — 3 Questions</p>
+    <p class="text-gray-500 mb-5">Laravel — 3 Questions</p>
+    <p class="text-gray-500">Arif Jundi Firdausi</p>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
